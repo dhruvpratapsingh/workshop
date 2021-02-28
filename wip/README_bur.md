@@ -1,38 +1,43 @@
-# Upcoming O'Reilly Book:  _Data Science on AWS_
-Pre-order the book on [**Amazon.com**](https://www.amazon.com/dp/1492079391/).
+# O'Reilly Book Coming Early 2021
 
-Request one of our [**talks**](https://datascienceonaws.com) for your conference or meetup.
+## Data Science on AWS
+
+YouTube Videos, Meetups, Book, and Code:  **https://datascienceonaws.com**
 
 [![Data Science on AWS](img/data-science-on-aws-book.png)](https://datascienceonaws.com)
 
-
 # Workshop Description
-
 In this workshop, we build a natural language processing (NLP) model to classify sample Twitter comments and customer-support emails using the state-of-the-art [BERT](https://arxiv.org/abs/1810.04805) model for language representation.
 
 To build our BERT-based NLP model, we use the [Amazon Customer Reviews Dataset](https://s3.amazonaws.com/amazon-reviews-pds/readme.html) which contains 150+ million customer reviews from Amazon.com for the 20 year period between 1995 and 2015.  In particular, we train a classifier to predict the `star_rating` (1 is bad, 5 is good) from the `review_body` (free-form review text).
 
-
 # Workshop Cost
 This workshop is FREE, but would otherwise cost <25 USD.
-
 ![Workshop Cost](img/billing.png)
 
-
-# Workshop Agenda
-
+# Workshop Description
 ![Workshop Agenda](img/outline.png)
 
+# Workshop Paths
+
+## Quick Start (All-In-One Workshop Path)
+![Workshop Paths](img/workshop_paths1.png)
+
+## Additional Workshop Paths per Persona
+![Workshop Paths](img/workshop_paths2.png)
+
+# Workshop Contributors
+![Workshop Contributors](img/primary-contributors.png)
 
 # Workshop Instructions
 
-## 0. Click on AWS Console
+## 1. Login to AWS Console
 
 Please logout of your AWS Console in all browser tabs before you continue.
 
 ![AWS Console](img/account-settings.png)
 
-Take the defaults and click on **Open AWS Console**. This will open AWS Console in a new browser tab.
+Take the defaults and click on **Console Access**. This will open AWS Console in a new browser tab.
 
 ![AWS Console](img/alt_aws_console.png)
 
@@ -42,117 +47,71 @@ _Double-check that your account name is something like `IibsAdminAccess-DO-NOT-D
 
 _If not, please logout of your AWS Console in all browser tabs and re-run the steps above!_
 
-## 1. Select either `us-east-1`, `us-west-2`, or `eu-west-1` as your region
 
-![](img/select-one-from-3-regions.png)
+## 2. Setup Environment
 
+### Click this button right here on this page:  
+[![Launch Stack](img/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=workshop&templateURL=https://dsoaws.s3.amazonaws.com/workshop/lab.template)  
+** ^^^^^^^^^^^^^^^^^ **
 
-## 2. Create `TeamRole` IAM Role
+**^^ CLICK THIS BUTTON RIGHT HERE ON THIS PAGE ^^**
 
-![IAM](img/alt_iam_1.png)
+## 3. Follow these instructions after clicking the `Launch Button` button above:
 
-![Roles](img/alt_roles_2.png)
+![CloudFormation 3](img/cloud-formation-3.png)
 
-![Create Role](img/alt_create_role_3.png)
+![CloudFormation 4](img/cloud-formation-4.png)
 
-![Select Service](img/alt_select_service_4.png)
+![CloudFormation 5](img/cloud-formation-5.png)
 
-![Select Policy](img/alt_select_policy_5.png)
+![CloudFormation 6](img/cloud-formation-6.png)
 
-![Add Tags](img/alt_add_tags_6.png)
-
-![Review Name](img/alt_review_name_7.png)
-
-
-## 3. Launch an Amazon SageMaker Notebook Instance
+## 4. Launch SageMaker Studio
 
 Open the [AWS Management Console](https://console.aws.amazon.com/console/home)
 
-![Back to SageMaker](img/alt_back_to_sagemaker_8.png)
+![Back to SageMaker](img/bur_back_to_sagemaker_8.png)
 
 In the AWS Console search bar, type `SageMaker` and select `Amazon SageMaker` to open the service console.
 
-![Notebook Instances](img/alt_notebook_instances_9.png)
+![Notebook Instances](img/stu_notebook_instances_9.png)
 
-![Create Notebook Part 1](img/alt_create_notebook_10.png)
+![Pending Studio](img/studio_pending.png)
 
-In the Notebook instance name text box, enter `workshop`.
+![Open Studio](img/studio_open.png)
 
-Choose `ml.t3.medium`. We'll only be using this instance to launch jobs. The training job themselves will run either on a SageMaker managed cluster or an Amazon EKS cluster.
+![Loading Studio](img/studio_loading.png)
 
-Volume size `250` - this is needed to explore datasets, build docker containers, and more.  During training data is copied directly from Amazon S3 to the training cluster when using SageMaker.  When using Amazon EKS, we'll setup a distributed file system that worker nodes will use to get access to training data.
+## 5. Launch a New Terminal within Studio
 
-![Fill notebook instance](img/alt-notebook-setup01.png)
+Click `File` > `New` > `Terminal` to launch a terminal in your Jupyter instance.
 
-In the IAM role box, select the default `TeamRole`, leave the rest to its defaults, and then click `Create notebook instance`.
+![Terminal Studio](img/studio_terminal.png)
 
-![Fill notebook instance](img/permissions.png)
+## 6. Clone this GitHub Repo in the Terminal
 
-On the `Notebook instances` section you should see the status change from `Pending` -> `InService`
-
-While the notebook spins up, continue to work on the next section.  We'll come back to the notebook when it's ready.
-
-
-## 4. Update IAM Role Policy
-
-Click on the `notebook` instance to see the instance details.
-
-![Notebook Instance Details](img/alt_click_notebook_instance.png)
-
-Click on the IAM role link and navigate to the IAM Management Console.
-
-![IAM Role](img/alt_update_iam.png)
-
-Click `Attach Policies`.
-
-![IAM Policy](img/alt_view_policies.png)
-              
-Select `IAMFullAccess` and click on `Attach Policy`.
-
-_Note:  Reminder that you should allow access only to the resources that you need._ 
-
-![Attach Admin Policy](img/alt_attach_policies.png)
-
-Confirm the Policies
-
-![Confirm Policies](img/alt_confirm_policies.png)
-
-
-## 5. Start the Jupyter notebook
-
-_Note:  Proceed when the status of the notebook instance changes from `Pending` to `InService`._
-
-![Back to SageMaker Notebooks](img/alt_back_to_sagemaker_8.png)
-
-![Start Jupyter](img/alt_start_jupyter.png)
-
-
-## 6. Launch a new Terminal within the Jupyter notebook
-
-Click `File` > `New` > [...scroll down...] `Terminal` to launch a terminal in your Jupyter instance.
-
-![](img/launch_jupyter_terminal.png)
-
-
-## 7. Clone this GitHub Repo in the Terminal
-
-Within the Jupyter terminal, run the following:
+Within the Terminal, run the following:
 
 ```
-cd ~/SageMaker && git clone https://github.com/data-science-on-aws/workshop
+cd ~ && git clone https://github.com/data-science-on-aws/workshop
 ```
 
-![](img/clone-workshop-repo.png)
+If you see an error like the following, just re-run the command again until it works:
+```
+fatal: Unable to create '/home/sagemaker-user/workshop/.git/index.lock': File exists.
 
+Another git process seems to be running in this repository, e.g.
+an editor opened by 'git commit'. Please make sure all processes
+are terminated then try again. If it still fails, a git process
+may have crashed in this repository earlier:
+remove the file manually to continue.
+```
+_Note:  This is not a fatal error ^^ above ^^.  Just re-run the command again until it works._
 
-## 8. Navigate Back to Notebook View
+## 7. Start the Workshop!
 
-![](img/back-to-jupyter-notebook.png)
-
-
-## 9. Start the Workshop!
-Navigate to `01_setup/` in your Jupyter notebook and start the workshop!
+Navigate to `00_quickstart/` in SageMaker Studio and start the workshop!
 
 _You may need to refresh your browser if you don't see the new `workshop/` directory._
 
-![Start Workshop](img/start_workshop.png)
+![Start Workshop](img/studio_start_workshop.png)
